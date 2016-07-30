@@ -1,0 +1,99 @@
+---
+title: "R-Week04-Assignment"
+author: "Sridhar AlwarsamyPerumalsamy"
+date: "July 29, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exploratory Data Analysis in R
+
+R has example data sets available within R along with loaded packages. We can list the data sets by their names and then load a data set into memory to use. To list all available data set use data() command
+
+###Histogram
+
+what is a histogram?
+A histogram is a graphical representation of the distribution of numerical data.
+
+Example of histogram in R
+
+By using the given mtcars data set ( Motor Trend Car Road Tests)  create a histogram. It shows the frequency of cars in miles per gallon bin. A bin is a  range of continuous values on the x-axis, (continuous variable)
+
+
+
+```{r }
+
+hist(mtcars$mpg, 
+     main="Histogram of cars, miles per galon, freqeuncy distribution", 
+     xlab="Miles per Galon", 
+     border="blue", 
+     col="grey",
+     las=1, 
+     breaks=5)
+```
+
+###PMF and PDF
+
+The probability distribution is a concept can occur in two ways, depending of the characteristics of the observation. It can be a probability density function (pdf) in case of a continuous random variable or PMF in case of  discrete values. For pdf we need to evaluate an integral to get  information. The pmf  delivers the information as a weighted sum. In both cases the area under the "curves" has to be unity.
+
+
+```{r }
+#Probability 
+
+phs=hist(mtcars$mpg, 
+     xlab="Histogram of cars, miles per galon, probability density", 
+     border="blue", 
+     col="grey",
+     las=1, 
+     breaks=5,
+     prob = TRUE
+     )
+#draw a mean line
+abline(v=mean(mtcars$mpg),col="red")
+
+```
+
+###BoxPlot
+
+A simple box plot displays the data variation range. 
+
+Example of boxplot in R
+
+By using the mtcars data set create a boxplot using the number of car cylinders and mile per gallon.
+
+```{r}
+
+boxplot(mpg~cyl,data=mtcars, main="Car Milage Data", 
+  	xlab="Number of Cylinders", ylab="Miles Per Gallon", col=(c("red","yellow","green")))
+
+```
+
+
+###Simple Scatterplot
+
+(Example taken from http://www.statmethods.net, https://www.ltcconline.net/greenl/courses/201/regression/scatter.htm and https://www.mathsisfun.com)
+
+What is scatter plot?
+A Scatter (XY) Plot has points that show the relationship between two sets of data.We can also draw a "Line of Best Fit" (also called a "Trend Line") on our scatter plot.
+
+If data is given in pairs then the scatter diagram of the data is just the points plotted on the xy-plane.  The scatter plot is used to visually identify relationships between the first and the second entries of paired data.
+
+Given a scatter plot, we can draw the line that best fits the data. By using this regression line we can find the value of y given x. This is called linear interpolation and Extrapolation.
+
+Line Equation: y = a + bx
+
+Where a is the y-intercept and b is the slope.  x is the independent or predictor variable and y is the dependent or response variable. 
+
+By using the available mtcars data set we plot a scatter plot against car weight vs miles per gallon. We can quickly visualize the data, as the car weight goes up, miles driven goes down per gallon. It has negative slope. 
+
+```{r}
+
+attach(mtcars)
+plot(wt, mpg, main="Scatterplot Example", 
+  	xlab="Car Weight ", ylab="Miles Per Gallon ", pch=19)
+
+abline(lm(mpg~wt), col="red") # regression line (y~x)
+```
